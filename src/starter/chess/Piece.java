@@ -4,7 +4,6 @@ import java.util.Collection;
 
 public abstract class Piece implements ChessPiece{
 
-
     @Override
     public ChessGame.TeamColor getTeamColor() {
         return null;
