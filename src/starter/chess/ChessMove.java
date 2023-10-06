@@ -7,6 +7,8 @@ package chess;
  * methods.
  */
 public interface ChessMove {
+
+
     /**
      * @return ChessPosition of starting location
      */

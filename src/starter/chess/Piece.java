@@ -1,4 +1,22 @@
 package chess;
 
-public class Piece {
+import java.util.Collection;
+
+public abstract class Piece implements ChessPiece{
+
+
+    @Override
+    public ChessGame.TeamColor getTeamColor() {
+        return null;
+    }
+
+    @Override
+    public PieceType getPieceType() {
+        return null;
+    }
+
+    @Override
+    public Collection<ChessMove> pieceMoves(ChessBoard board, ChessPosition myPosition) {
+        return null;
+    }
 }
