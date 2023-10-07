@@ -1,18 +1,26 @@
 package chess;
 
 public class Move implements ChessMove{
+
+    Position startingPos = new Position();
+
+    Position endingPos = new Position();
+
     @Override
     public ChessPosition getStartPosition() {
-        return null;
+        return startingPos;
     }
 
     @Override
     public ChessPosition getEndPosition() {
-        return null;
+        return endingPos;
     }
 
     @Override
     public ChessPiece.PieceType getPromotionPiece() {
-        return null;
+        if(ChessPiece.PieceType == 5) {
+            if (endingPos.getColumn() == 0 || endingPos.getColumn() == 7)
+                ChessPiece.PieceType = 1;
+        }
     }
 }
