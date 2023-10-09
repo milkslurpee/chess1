@@ -2,8 +2,13 @@ package chess;
 
 public class Position implements ChessPosition{
 
-    int row = 0;
-    int column = 0;
+    int row;
+    int column;
+
+    public Position(Integer row, Integer col) {
+        this.row = row;
+        this.column = col;
+    }
     @Override
     public int getRow() {
         return row;

@@ -4,6 +4,8 @@ import java.util.Collection;
 
 public class Game implements ChessGame{
 
+    ChessBoard board = getBoard();
+
     @Override
     public TeamColor getTeamTurn() {
         return null;
@@ -16,7 +18,12 @@ public class Game implements ChessGame{
 
     @Override
     public Collection<ChessMove> validMoves(ChessPosition startPosition) {
-        return null;
+
+        if(startPosition == null)
+            return null;
+
+        ChessPiece pieceType = getBoard().getPiece(startPosition);
+        return pieceType.pieceMoves(board,startPosition);
     }
 
     @Override

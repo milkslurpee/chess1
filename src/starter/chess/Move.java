@@ -2,9 +2,16 @@ package chess;
 
 public class Move implements ChessMove{
 
-    Position startingPos = new Position();
+    ChessPosition startingPos;
 
-    Position endingPos = new Position();
+    ChessPosition endingPos;
+
+    ChessPiece.PieceType promotionPiece;
+
+    public Move(ChessPosition startingPos , ChessPosition endingPos){
+        this.startingPos = startingPos;
+        this.endingPos = endingPos;
+    }
 
     @Override
     public ChessPosition getStartPosition() {
@@ -18,9 +25,6 @@ public class Move implements ChessMove{
 
     @Override
     public ChessPiece.PieceType getPromotionPiece() {
-        if(ChessPiece.PieceType == 5) {
-            if (endingPos.getColumn() == 0 || endingPos.getColumn() == 7)
-                ChessPiece.PieceType = 1;
-        }
+        return promotionPiece;
     }
 }

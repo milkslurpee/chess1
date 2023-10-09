@@ -12,7 +12,9 @@ public class TestFactory {
     //------------------------------------------------------------------------------------------------------------------
     public static ChessBoard getNewBoard(){
         // FIXME
-		return null;
+		ChessBoard chessBoard = new Board();
+            return chessBoard;
+
     }
 
     public static ChessGame getNewGame(){
@@ -22,12 +24,20 @@ public class TestFactory {
 
     public static ChessPiece getNewPiece(ChessGame.TeamColor pieceColor, ChessPiece.PieceType type){
         // FIXME
-		return null;
+		return switch (type) {
+            case KING -> new King(pieceColor);
+            case QUEEN -> new Queen(pieceColor);
+            case PAWN -> new Pawn(pieceColor);
+            case ROOK -> new Rook(pieceColor);
+            case BISHOP -> new Bishop(pieceColor);
+            case KNIGHT -> new Knight(pieceColor);
+        };
     }
 
     public static ChessPosition getNewPosition(Integer row, Integer col){
         // FIXME
-		return null;
+		ChessPosition chessPosition = new Position(row, col);
+        return chessPosition;
     }
 
     public static ChessMove getNewMove(ChessPosition startPosition, ChessPosition endPosition, ChessPiece.PieceType promotionPiece){
