@@ -21,7 +21,7 @@ public class Position implements ChessPosition{
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Position position = (Position) o;
-        return row == position.row && column == position.column;
+        return Objects.equals(row, position.row) && Objects.equals(column, position.column);
     }
 
     @Override
