@@ -23,8 +23,6 @@ public class Pawn implements ChessPiece {
         return PieceType.PAWN;
     }
 
-
-    @Override
     public Collection<ChessMove> pieceMoves(ChessBoard board, ChessPosition myPosition) {
         Set<ChessMove> validMoves = new HashSet<>();
         int row = myPosition.getRow();
@@ -33,9 +31,9 @@ public class Pawn implements ChessPiece {
         int forwardDirection;
 
         if (teamColor == ChessGame.TeamColor.WHITE) {
-            forwardDirection = -1;
-        } else {
             forwardDirection = 1;
+        } else {
+            forwardDirection = -1;
         }
 
         int newRow = row + forwardDirection;
@@ -48,14 +46,22 @@ public class Pawn implements ChessPiece {
             if (newPiece == null) {
                 validMoves.add(new Move(myPosition, newPosition));
 
-                if ((newPosition.getRow() == 2 && this.getTeamColor() == ChessGame.TeamColor.WHITE)
-                        || (newPosition.getRow() == 7 && this.getTeamColor() == ChessGame.TeamColor.BLACK)) {
-                    newRow = row + forwardDirection * 2;
-                    newPosition = new Position(newRow, newCol);
-                    newPiece = board.getPiece(newPosition);
+                if ((row == 2 && teamColor == ChessGame.TeamColor.WHITE)
+                        || (row == 7 && teamColor == ChessGame.TeamColor.BLACK)) {
+                    int doubleMove = row + (forwardDirection * 2);
+                    ChessPosition doublePosition = new Position(doubleMove, newCol);
+                    ChessPiece doublePiece = board.getPiece(doublePosition);
 
-                    if (newPiece == null)
-                        validMoves.add(new Move(myPosition, newPosition));
+                    if (doublePiece == null)
+                        validMoves.add(new Move(myPosition, doublePosition));
+                }
+                if ((newPosition.getRow() == 1 && teamColor == ChessGame.TeamColor.BLACK)
+                        || (newPosition.getRow() == 8 && teamColor == ChessGame.TeamColor.WHITE)) {
+                    // Handle pawn promotion here
+                    validMoves.add(new Move(myPosition, newPosition, PieceType.QUEEN)); // Promote to Queen by default
+                    validMoves.add(new Move(myPosition, newPosition, PieceType.ROOK)); // Promote to Rook
+                    validMoves.add(new Move(myPosition, newPosition, PieceType.BISHOP)); // Promote to Bishop
+                    validMoves.add(new Move(myPosition, newPosition, PieceType.KNIGHT)); // Promote to Knight
                 }
             }
 
@@ -63,24 +69,32 @@ public class Pawn implements ChessPiece {
             newPosition = new Position(newRow, newCol);
             if (newCol == 1) {
                 newPosition = new Position(newRow, newCol + 1);
-                newPiece = board.getPiece(newPosition);
-                if (newPiece.getTeamColor() != this.teamColor)
-                    validMoves.add(new Move(myPosition, newPosition));
+                if (newPosition.getColumn() >= 1 && newPosition.getColumn() <= 8) {
+                    newPiece = board.getPiece(newPosition);
+                    if (newPiece.getTeamColor() != this.teamColor)
+                        validMoves.add(new Move(myPosition, newPosition));
+                }
             }
             if (newCol == 8) {
                 newPosition = new Position(newRow, newCol - 1);
-                newPiece = board.getPiece(newPosition);
-                if (newPiece.getTeamColor() != this.teamColor)
-                    validMoves.add(new Move(myPosition, newPosition));
+                if (newPosition.getColumn() >= 1 && newPosition.getColumn() <= 8) {
+                    newPiece = board.getPiece(newPosition);
+                    if (newPiece.getTeamColor() != this.teamColor)
+                        validMoves.add(new Move(myPosition, newPosition));
+                }
             } else {
                 ChessPosition leftTakeover = new Position(newRow, newCol - 1);
                 ChessPosition rightTakeover = new Position(newRow, newCol + 1);
-                ChessPiece leftPiece = board.getPiece(leftTakeover);
-                ChessPiece rightPiece = board.getPiece(rightTakeover);
-                if (leftPiece.getTeamColor() != this.teamColor)
-                    validMoves.add(new Move(myPosition, leftTakeover));
-                if (rightPiece.getTeamColor() != this.teamColor)
-                    validMoves.add(new Move(myPosition, rightTakeover));
+                if (leftTakeover.getColumn() >= 1 && leftTakeover.getColumn() <= 8) {
+                    ChessPiece leftPiece = board.getPiece(leftTakeover);
+                    if (leftPiece != null && leftPiece.getTeamColor() != this.teamColor)
+                        validMoves.add(new Move(myPosition, leftTakeover));
+                }
+                if (rightTakeover.getColumn() >= 1 && rightTakeover.getColumn() <= 8) {
+                    ChessPiece rightPiece = board.getPiece(rightTakeover);
+                    if (rightPiece != null && rightPiece.getTeamColor() != this.teamColor)
+                        validMoves.add(new Move(myPosition, rightTakeover));
+                }
             }
         }
         return validMoves;

@@ -18,8 +18,8 @@ public class TestFactory {
     }
 
     public static ChessGame getNewGame(){
-        // FIXME
-		return null;
+        ChessGame chessGame = new Game();
+        return chessGame;
     }
 
     public static ChessPiece getNewPiece(ChessGame.TeamColor pieceColor, ChessPiece.PieceType type){
@@ -41,8 +41,8 @@ public class TestFactory {
     }
 
     public static ChessMove getNewMove(ChessPosition startPosition, ChessPosition endPosition, ChessPiece.PieceType promotionPiece){
-        // FIXME
-		return null;
+        ChessMove chessMove = new Move(startPosition,endPosition,promotionPiece);
+        return chessMove;
     }
     //------------------------------------------------------------------------------------------------------------------
 
