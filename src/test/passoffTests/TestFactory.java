@@ -18,8 +18,7 @@ public class TestFactory {
     }
 
     public static ChessGame getNewGame(){
-        ChessGame chessGame = new Game();
-        return chessGame;
+        return new Game();
     }
 
     public static ChessPiece getNewPiece(ChessGame.TeamColor pieceColor, ChessPiece.PieceType type){

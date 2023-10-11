@@ -434,6 +434,7 @@ public class PawnMoveTests {
         validMoves.add(TestFactory.getNewMove(position, TestFactory.getNewPosition(1, 2), ChessPiece.PieceType.ROOK));
         validMoves.add(TestFactory.getNewMove(position, TestFactory.getNewPosition(1, 2), ChessPiece.PieceType.BISHOP));
         validMoves.add(TestFactory.getNewMove(position, TestFactory.getNewPosition(1, 2), ChessPiece.PieceType.QUEEN));
+        Set<ChessMove> pieceMoves2 = new HashSet<>(pawn.pieceMoves(board, position));
 
         Set<ChessMove> pieceMoves = new HashSet<>(pawn.pieceMoves(board, position));
         Assertions.assertEquals(validMoves, pieceMoves,
