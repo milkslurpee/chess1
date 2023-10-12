@@ -75,18 +75,20 @@ public class Pawn implements ChessPiece {
                 newPosition = new Position(newRow, newCol + 1);
                 if (newPosition.getColumn() > 0 && newPosition.getColumn() < 9) {
                     newPiece = board.getPiece(newPosition);
-                    if (newPiece.getTeamColor() != this.teamColor){
-                        if ((newRow == 1 && teamColor == ChessGame.TeamColor.BLACK)
-                                || (newRow == 8 && teamColor == ChessGame.TeamColor.WHITE)) {
-                            // Handle pawn promotion here
-                            validMoves.add(new Move(myPosition, newPosition, PieceType.QUEEN)); // Promote to Queen by default
-                            validMoves.add(new Move(myPosition, newPosition, PieceType.ROOK)); // Promote to Rook
-                            validMoves.add(new Move(myPosition, newPosition, PieceType.BISHOP)); // Promote to Bishop
-                            validMoves.add(new Move(myPosition, newPosition, PieceType.KNIGHT)); // Promote to Knight
+                    if(newPiece != null) {
+                        if (newPiece.getTeamColor() != this.teamColor) {
+                            if ((newRow == 1 && teamColor == ChessGame.TeamColor.BLACK)
+                                    || (newRow == 8 && teamColor == ChessGame.TeamColor.WHITE)) {
+                                // Handle pawn promotion here
+                                validMoves.add(new Move(myPosition, newPosition, PieceType.QUEEN)); // Promote to Queen by default
+                                validMoves.add(new Move(myPosition, newPosition, PieceType.ROOK)); // Promote to Rook
+                                validMoves.add(new Move(myPosition, newPosition, PieceType.BISHOP)); // Promote to Bishop
+                                validMoves.add(new Move(myPosition, newPosition, PieceType.KNIGHT)); // Promote to Knight
+                            }
+                            //System.out.println("\n76\n");
+                            if ((newPosition.getRow() != 8 && newPosition.getRow() != 1) && new Move(myPosition, newPosition).getPromotionPiece() == null)
+                                validMoves.add(new Move(myPosition, newPosition));
                         }
-                        System.out.println("\n76\n");
-                        if((newPosition.getRow() != 8 && newPosition.getRow() != 1) && new Move(myPosition, newPosition).getPromotionPiece() == null)
-                            validMoves.add(new Move(myPosition, newPosition));
                     }
                 }
             }
@@ -94,19 +96,21 @@ public class Pawn implements ChessPiece {
                 newPosition = new Position(newRow, newCol - 1);
                 if (newPosition.getColumn() > 0 && newPosition.getColumn() < 9) {
                     newPiece = board.getPiece(newPosition);
-                    if (newPiece.getTeamColor() != this.teamColor) {
-                        if ((newRow == 1 && teamColor == ChessGame.TeamColor.BLACK)
-                                || (newRow == 8 && teamColor == ChessGame.TeamColor.WHITE)) {
-                            // Handle pawn promotion here
-                            validMoves.add(new Move(myPosition, newPosition, PieceType.QUEEN)); // Promote to Queen by default
-                            validMoves.add(new Move(myPosition, newPosition, PieceType.ROOK)); // Promote to Rook
-                            validMoves.add(new Move(myPosition, newPosition, PieceType.BISHOP)); // Promote to Bishop
-                            validMoves.add(new Move(myPosition, newPosition, PieceType.KNIGHT)); // Promote to Knight
-                        }
+                    if(newPiece != null) {
+                        if (newPiece.getTeamColor() != this.teamColor) {
+                            if ((newRow == 1 && teamColor == ChessGame.TeamColor.BLACK)
+                                    || (newRow == 8 && teamColor == ChessGame.TeamColor.WHITE)) {
+                                // Handle pawn promotion here
+                                validMoves.add(new Move(myPosition, newPosition, PieceType.QUEEN)); // Promote to Queen by default
+                                validMoves.add(new Move(myPosition, newPosition, PieceType.ROOK)); // Promote to Rook
+                                validMoves.add(new Move(myPosition, newPosition, PieceType.BISHOP)); // Promote to Bishop
+                                validMoves.add(new Move(myPosition, newPosition, PieceType.KNIGHT)); // Promote to Knight
+                            }
 
-                        System.out.println("\n84\n");
-                        if((newPosition.getRow() != 8 && newPosition.getRow() != 1) && new Move(myPosition, newPosition).getPromotionPiece() == null)
-                            validMoves.add(new Move(myPosition, newPosition));
+                            //System.out.println("\n84\n");
+                            if ((newPosition.getRow() != 8 && newPosition.getRow() != 1) && new Move(myPosition, newPosition).getPromotionPiece() == null)
+                                validMoves.add(new Move(myPosition, newPosition));
+                        }
                     }
                 }
             } else {
@@ -124,7 +128,7 @@ public class Pawn implements ChessPiece {
                             validMoves.add(new Move(myPosition, leftTakeover, PieceType.KNIGHT)); // Promote to Knight
                         }
 
-                        System.out.println("\n92\n");
+                        //System.out.println("\n92\n");
                         if((newPosition.getRow() != 8 && newPosition.getRow() != 1) && new Move(myPosition, newPosition).getPromotionPiece() == null)
                             validMoves.add(new Move(myPosition, leftTakeover));
                     }
@@ -140,7 +144,7 @@ public class Pawn implements ChessPiece {
                             validMoves.add(new Move(myPosition, rightTakeover, PieceType.BISHOP)); // Promote to Bishop
                             validMoves.add(new Move(myPosition, rightTakeover, PieceType.KNIGHT)); // Promote to Knight
                         }
-                        System.out.println("\n98\n");
+                        //System.out.println("\n98\n");
                         if((newPosition.getRow() != 8 && newPosition.getRow() != 1) && new Move(myPosition, newPosition).getPromotionPiece() == null)
                             validMoves.add(new Move(myPosition, rightTakeover));
                     }
