@@ -198,7 +198,7 @@ public class Game implements ChessGame{
 
     public void printBoard() {
         for (int row = 8; row >= 1; row--) {
-            System.out.print(row + "  "); // Print the row number
+            System.out.print(row + "   "); // Print the row number
 
             for (int col = 1; col <= 8; col++) {
                 ChessPosition currentPosition = new Position(row, col);
@@ -219,7 +219,7 @@ public class Game implements ChessGame{
             System.out.println();
         }
 
-        System.out.println("\n    A  B  C  D  E  F  G  H\n\n\n"); // Print column labels
+        System.out.println("\n     A  B  C  D  E  F  G  H\n\n\n"); // Print column labels
     }
     public Set<ChessPosition> enemyPieces() {
         Set<ChessPosition> enemyPieceLocations = new HashSet<>();
