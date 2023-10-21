@@ -2,11 +2,13 @@ package dataAccess;
 
 import models.Authtoken;
 
+import java.util.Map;
+
 /**
  * The AuthDAO class provides data access methods for handling authentication tokens.
  */
 public class AuthDAO {
-
+    private Map<String, Authtoken> authMap;
     /**
      * Reads an authentication token based on its ID.
      *
@@ -15,7 +17,12 @@ public class AuthDAO {
      * @throws DataAccessException If there is an issue accessing the data.
      */
     public Authtoken read(String authtokenID) throws DataAccessException {
-        return null;
+        if(!authMap.containsKey(authtokenID)){
+            throw new DataAccessException("Authtoken doesn't exist");
+        }
+        else {
+            return authMap.get(authtokenID);
+        }
     }
 
     /**
@@ -25,6 +32,13 @@ public class AuthDAO {
      * @throws DataAccessException If there is an issue accessing the data.
      */
     public void insert(Authtoken authtoken) throws DataAccessException {
+        String authtokenID = authtoken.getUserName();
+        if(!authMap.containsKey(authtokenID)){
+            throw new DataAccessException("Authtoken already exists");
+        }
+        else {
+            authMap.put(authtokenID, authtoken);
+        }
     }
 
     /**
@@ -34,6 +48,12 @@ public class AuthDAO {
      * @throws DataAccessException If there is an issue accessing the data.
      */
     public void delete(String authtokenID) throws DataAccessException {
+        if(!authMap.containsKey(authtokenID)){
+            throw new DataAccessException("Authtoken doesn't exist");
+        }
+        else {
+            authMap.remove(authtokenID);
+        }
     }
 
     /**
@@ -42,5 +62,11 @@ public class AuthDAO {
      * @throws DataAccessException If there is an issue accessing the data.
      */
     public void clear() throws DataAccessException {
+        if(authMap.isEmpty()){
+            throw new DataAccessException("No Authtokens to clear");
+        }
+        else {
+            authMap.clear();
+        }
     }
 }

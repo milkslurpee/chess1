@@ -1,11 +1,13 @@
 package dataAccess;
 import models.User;
+import java.util.*;
 
 /**
  * The UserDAO class provides data access methods for managing user data.
  */
 public class UserDAO {
 
+    private Map<String, User> userMap;
     /**
      * Reads a user based on their name.
      *
@@ -14,7 +16,12 @@ public class UserDAO {
      * @throws DataAccessException If there is an issue accessing the data.
      */
     public User read(String name) throws DataAccessException {
-        return null;
+        if(!userMap.containsKey(name)){
+            throw new DataAccessException("User doesn't exist");
+        }
+        else{
+            return userMap.get(name);
+        }
     }
 
     /**
@@ -24,6 +31,13 @@ public class UserDAO {
      * @throws DataAccessException If there is an issue accessing the data.
      */
     public void insert(User user) throws DataAccessException {
+        String username = user.getUsername();
+        if(userMap.containsKey(username)){
+            throw new DataAccessException("Username already Taken");
+        }
+        else {
+            userMap.put(username, user);
+        }
     }
 
     /**
@@ -33,6 +47,12 @@ public class UserDAO {
      * @throws DataAccessException If there is an issue accessing the data.
      */
     public void delete(String name) throws DataAccessException {
+        if(!userMap.containsKey(name)){
+            throw new DataAccessException("User doesn't exist");
+        }
+        else{
+            userMap.remove(name);
+        }
     }
 
     /**
@@ -41,5 +61,11 @@ public class UserDAO {
      * @throws DataAccessException If there is an issue accessing the data.
      */
     public void clear() throws DataAccessException {
+        if(userMap.isEmpty()){
+            throw new DataAccessException("There are no Users to clear");
+        }
+        else{
+            userMap.clear();
+        }
     }
 }
