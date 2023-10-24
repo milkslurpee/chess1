@@ -34,7 +34,7 @@ public class GameDAO {
      * @throws DataAccessException If there is an issue accessing the data.
      */
     public void insert(GameModel game) throws DataAccessException {
-        Integer gameID = game.getGameID();
+        int gameID = game.getGameID();
         if(gameMap.containsKey(gameID)){
             throw new DataAccessException("Game already exists");
         }
