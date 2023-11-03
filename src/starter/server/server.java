@@ -9,13 +9,14 @@ import spark.Spark;
 
 public class server {
     public static void main(String[] args) {
+
         // Instantiate the required DAOs
         AuthDAO authDAO = new AuthDAO();
         GameDAO gameDAO = new GameDAO();
         UserDAO userDAO = new UserDAO();
 
         // Instantiate the services
-        ClearService clearService = new ClearService(authDAO, gameDAO, userDAO);
+        ClearService clearService = new ClearService();
         CreateGameService createGameService = new CreateGameService();
         JoinGameService joinGameService = new JoinGameService(/* pass required DAOs */);
         ListGameService listGameService = new ListGameService(/* pass required DAOs */);
