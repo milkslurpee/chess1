@@ -22,7 +22,6 @@ public class CreateGameHandler {
         response.type("application/json");
 
         CreateGameRequest createGameRequest = gson.fromJson(request.body(), CreateGameRequest.class);
-        String gameName = createGameRequest.getGameName();
 
         // Creating a new game model
 

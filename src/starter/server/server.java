@@ -17,7 +17,7 @@ public class server {
 
         // Instantiate the services
         ClearService clearService = new ClearService();
-        CreateGameService createGameService = new CreateGameService();
+        CreateGameService createGameService = new CreateGameService(gameDAO);
         JoinGameService joinGameService = new JoinGameService(/* pass required DAOs */);
         ListGameService listGameService = new ListGameService(/* pass required DAOs */);
         LoginService loginService = new LoginService(/* pass required DAOs */);
