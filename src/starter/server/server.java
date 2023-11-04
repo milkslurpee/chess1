@@ -30,11 +30,11 @@ public class server {
         // Handlers instantiation
         ClearDbHandler clearDatabaseHandler = new ClearDbHandler(clearService, gson);
         CreateGameHandler createGameHandler = new CreateGameHandler(createGameService, gson);
-        JoinGameHandler joinGameHandler = new JoinGameHandler(JoinGameService, gson);
-        ListGamesHandler listGameHandler = new ListGamesHandler(ListGameService, gson);
-        LoginHandler loginHandler = new LoginHandler(LoginService, gson);
-        LogoutHandler logoutHandler = new LogoutHandler(LogoutService, gson);
-        RegisterHandler registerHandler = new RegisterHandler(RegisterService, gson);
+        JoinGameHandler joinGameHandler = new JoinGameHandler(joinGameService, gson);
+        ListGamesHandler listGameHandler = new ListGamesHandler(listGameService, gson);
+        LoginHandler loginHandler = new LoginHandler(loginService, gson);
+        LogoutHandler logoutHandler = new LogoutHandler(logoutService, gson);
+        RegisterHandler registerHandler = new RegisterHandler(registerService, gson);
 
         // Set up HTTP routes for different APIs
         Spark.delete("/db", clearDatabaseHandler::handleClear);

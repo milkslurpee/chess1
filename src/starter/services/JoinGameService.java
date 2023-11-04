@@ -1,12 +1,9 @@
 package services;
 import chess.ChessGame;
-import chess.Game;
 import dataAccess.DataAccessException;
 import dataAccess.GameDAO;
 import models.GameModel;
-import requests.CreateGameRequest;
 import requests.JoinGameRequest;
-import responses.createGameResponse;
 import responses.joinGameResponse;
 
 /**
@@ -20,21 +17,42 @@ public class JoinGameService {
      * @return A joinGameResponse indicating the success of the joining operation.
      */
     public joinGameResponse joinGame(JoinGameRequest request) {
-        int gameID = request.getGameID();
-
-        GameModel newGame = new GameModel(gameID, "White Player", "Black Player", gameName, newChessGame);
 
         try {
+            int gameID = request.getGameID();
             GameDAO gameDAO = new GameDAO();
-            gameDAO.insert(newGame);
-            return new joinGameResponse(true, "Game joined successfully");
-        } catch (DataAccessException e) {
-            return new joinGameResponse(false, "Failed to create the game");
-        }
-    }
+            GameModel game = null;
+            game = gameDAO.read(gameID);
+            String username = request.getUserName();
+            ChessGame.TeamColor playerColor = request.getColor();
 
-    // Method to generate a unique game ID
-    private int generateUniqueGameID() {
-        return (int) (Math.random() * 1000);
+            if (game == null) {
+                return new joinGameResponse(false, "Error: Game does not exist");
+            }
+
+            if (game.getWhiteUsername() == null && playerColor == ChessGame.TeamColor.WHITE) {
+                game.setWhiteUsername(username);
+                gameDAO.insert(game);
+            }
+            else if (game.getBlackUsername() == null && playerColor == ChessGame.TeamColor.BLACK) {
+                game.setBlackUsername(username);
+                gameDAO.insert(game);
+            }
+            else if (playerColor == null) {
+                if (game.getWhiteUsername() == null) {
+                    game.setWhiteUsername(username); // The first observer takes the white side
+                } else if (game.getBlackUsername() == null) {
+                    game.setBlackUsername(username); // The second observer takes the black side
+                }
+                return new joinGameResponse(true, "User joined as observer");
+            }
+            else if(game.getWhiteUsername() != null && game.getBlackUsername() != null){
+                return new joinGameResponse(false, "Error: Game is full");
+            }
+
+        } catch (DataAccessException e) {
+            throw new RuntimeException(e);
+        }
+        return new joinGameResponse(true, "Player joined successfully");
     }
 }

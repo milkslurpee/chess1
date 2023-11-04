@@ -17,15 +17,18 @@ public class JoinGameRequest {
      */
     private int gameID;
 
+    private String userName;
+
     /**
      * Constructs a new JoinGameRequest with the provided team color and game ID.
      *
      * @param color The team color (e.g., white or black) that the player wants to join as.
      * @param gameID The unique identifier of the game to join.
      */
-    public JoinGameRequest(ChessGame.TeamColor color, int gameID) {
+    public JoinGameRequest(ChessGame.TeamColor color, int gameID, String userName) {
         this.color = color;
         this.gameID = gameID;
+        this.userName = userName;
     }
 
     public ChessGame.TeamColor getColor() {
@@ -36,6 +39,8 @@ public class JoinGameRequest {
         return gameID;
     }
 
+    public String getUserName() {return userName;}
+
     public void setColor(ChessGame.TeamColor color) {
         this.color = color;
     }
@@ -43,4 +48,6 @@ public class JoinGameRequest {
     public void setGameID(int gameID) {
         this.gameID = gameID;
     }
+
+    public void setUserName(String userName){this.userName = userName;}
 }
