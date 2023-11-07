@@ -1,8 +1,9 @@
 package dataAccess;
 
 import models.Authtoken;
-
+import java.util.UUID;
 import java.util.Map;
+import java.util.HashMap;
 
 /**
  * The AuthDAO class provides data access methods for handling authentication tokens.
@@ -16,6 +17,11 @@ public class AuthDAO {
      * @return The retrieved authentication token, or null if not found.
      * @throws DataAccessException If there is an issue accessing the data.
      */
+
+    public AuthDAO() {
+        this.authMap = new HashMap<>(); // Instantiating the userMap
+    }
+
     public Authtoken read(String authtokenID) throws DataAccessException {
         if(!authMap.containsKey(authtokenID)){
             throw new DataAccessException("Authtoken doesn't exist");
@@ -33,7 +39,7 @@ public class AuthDAO {
      */
     public void insert(Authtoken authtoken) throws DataAccessException {
         String authtokenID = authtoken.getUserName();
-        if(!authMap.containsKey(authtokenID)){
+        if(authMap.containsKey(authtokenID)){
             throw new DataAccessException("Authtoken already exists");
         }
         else {

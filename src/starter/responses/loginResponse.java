@@ -30,7 +30,7 @@ public class loginResponse extends baseResponse {
         this.authToken = authToken;
     }
 
-    public String getUserName() {
+    public String getUsername() {
         return userName;
     }
 
@@ -38,7 +38,7 @@ public class loginResponse extends baseResponse {
         return authToken;
     }
 
-    public void setUserName(String userName) {
+    public void setUsername(String userName) {
         this.userName = userName;
     }
 

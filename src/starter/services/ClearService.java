@@ -8,9 +8,6 @@ import responses.clearResponse;
  * The ClearService class provides a service for clearing data or operations.
  */
 public class ClearService {
-    public ClearService(){
-    }
-
     /**
      * Clears data or performs a specific operation.
      *

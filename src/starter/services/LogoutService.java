@@ -1,4 +1,6 @@
 package services;
+import dataAccess.AuthDAO;
+import dataAccess.DataAccessException;
 import responses.logoutResponse;
 
 /**
@@ -10,7 +12,13 @@ public class LogoutService {
      *
      * @return A logoutResponse indicating the success of the logout operation.
      */
-    public logoutResponse logout() {
-        return null;
+    public logoutResponse logout(String authToken) {
+        AuthDAO authDAO = new AuthDAO();
+        try {
+            authDAO.delete(authToken);
+            return new logoutResponse(true, "Logout successful");
+        } catch (DataAccessException e) {
+            return new logoutResponse(false, "Error: Failed to logout");
+        }
     }
 }

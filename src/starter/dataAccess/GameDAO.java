@@ -3,6 +3,7 @@ package dataAccess;
 import models.GameModel;
 
 import java.util.Map;
+import java.util.HashMap;
 
 /**
  * The GameDAO class provides data access methods for managing game data.
@@ -10,6 +11,11 @@ import java.util.Map;
 public class GameDAO {
 
     private Map<Integer, GameModel> gameMap;
+
+    public GameDAO() {
+        // Initialize the gameMap in the constructor
+        this.gameMap = new HashMap<>();
+    }
 
     /**
      * Reads a game based on its ID.
@@ -69,6 +75,15 @@ public class GameDAO {
         }
         else{
             gameMap.clear();
+        }
+    }
+
+    public Map<Integer, GameModel> getGameMap() throws DataAccessException{
+        if(!gameMap.isEmpty()) {
+            return gameMap;
+        }
+        else{
+            throw new DataAccessException("There are no Games to list");
         }
     }
 }

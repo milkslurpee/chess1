@@ -15,6 +15,11 @@ public class UserDAO {
      * @return The retrieved User, or null if the user is not found.
      * @throws DataAccessException If there is an issue accessing the data.
      */
+
+    public UserDAO() {
+        this.userMap = new HashMap<>(); // Instantiating the userMap
+    }
+
     public User read(String name) throws DataAccessException {
         if(!userMap.containsKey(name)){
             throw new DataAccessException("User doesn't exist");
